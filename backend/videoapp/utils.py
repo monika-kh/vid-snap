@@ -3,9 +3,10 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 import pysrt
-from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+from moviepy.editor import VideoFileClip
 from moviepy.video.fx import all as vfx
-from .models import Video, Filtered_Videos
+from .models import Video, Filtered_Videos, SubtitleFiles
+import ffmpeg
 
 
 def time_to_seconds(time_obj):
@@ -17,41 +18,9 @@ def time_to_seconds(time_obj):
     )
 
 
-def create_subtitle_clips(
-    subtitles, videosize, fontsize=24, font="Arial", color="yellow", debug=False
-):
-    """
-    Function to merge video clip and the subtitles.
-    """
-    subtitle_clips = []
+def add_subtitles(video_path, subtitles_path, output_path, video):
 
-    for subtitle in subtitles:
-        start_time = time_to_seconds(subtitle.start)
-        end_time = time_to_seconds(subtitle.end)
-        duration = end_time - start_time
-
-        video_width, video_height = videosize
-
-        text_clip = (
-            TextClip(
-                subtitle.text,
-                fontsize=fontsize,
-                font=font,
-                color=color,
-                bg_color="black",
-                size=(video_width * 3 / 4, None),
-                method="caption",
-            )
-            .set_start(start_time)
-            .set_duration(duration)
-        )
-        subtitle_x_position = "center"
-        subtitle_y_position = video_height * 4 / 5
-
-        text_position = (subtitle_x_position, subtitle_y_position)
-        subtitle_clips.append(text_clip.set_position(text_position))
-
-    return subtitle_clips
+    ffmpeg.input(video_path).output(output_path, vf='subtitles=' + subtitles_path).run(overwrite_output=True)
 
 
 def merge_clips(video, subtitle_file):
@@ -59,20 +28,18 @@ def merge_clips(video, subtitle_file):
     Function to store the processed video in the database.
     """
     video = Video.objects.get(id=video.id)
-
-    video_clip = VideoFileClip("videoproject/" + video.video_file.url)
-    subtitles = pysrt.open("videoproject/" + subtitle_file.subtitle.url)
-
     begin, end = ("videoproject/" + video.video_file.url).split(".mp4")
 
     output_video_file = begin + "_subtitled" + ".mp4"
 
     print("Output file name: ", output_video_file)
     # Create subtitle clips
-    subtitle_clips = create_subtitle_clips(subtitles, video_clip.size)
-
-    final_video = CompositeVideoClip([video_clip] + subtitle_clips)
-    final_video.write_videofile(output_video_file, codec="libx264", audio_codec="aac")
+    
+    video_clip_url = "videoproject/" + video.video_file.url
+    
+    subtitles_url = "videoproject/" + subtitle_file.subtitle.url
+    
+    add_subtitles(video_clip_url, subtitles_url, output_video_file, video)
 
     # Get processed video file path and store it in the table.
     cleaned_path = os.path.normpath(output_video_file)
