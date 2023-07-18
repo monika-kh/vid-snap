@@ -75,12 +75,12 @@ const UploadPage = () => {
     let box3 = document.getElementById("hidden-box3")
     if (e.target.checked == true) {
       box1.style.display = "flex"
-      box2.style.display = "flex"
+      // box2.style.display = "flex"
       box3.style.display = "flex"
     }
     else {
       box1.style.display = "none"
-      box2.style.display = "none"
+      // box2.style.display = "none"
       box3.style.display = "none"
     }
   }

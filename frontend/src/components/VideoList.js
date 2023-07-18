@@ -65,7 +65,7 @@ const VideoList = () => {
 
               <div className="blog-table">
                 <h4 className="blog-card-caption">
-                  Lorem Ipsum is simply dummy text of the printing and
+                  {el.title ? el.title : "Video"}
                 </h4>
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
