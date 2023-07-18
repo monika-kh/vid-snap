@@ -1,0 +1,16 @@
+FROM node:14.16.0-alpine3.10
+
+WORKDIR /app
+
+COPY . ./
+
+# install app dependencies
+RUN npm install
+
+RUN echo $(ls -1 /app/node_modules/react-scripts/bin)
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# start app
+CMD ["npm", "start"]

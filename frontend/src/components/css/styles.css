@@ -1,0 +1,379 @@
+body {
+  font-family: sans-serif;
+  background-color: #e7e7e7;
+}
+img{
+  height: 180px;
+  width: 280px;
+}
+.title{
+  display: flex;
+  justify-content: center;
+}
+
+.file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.submit-box{
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.submit-btn{
+  background-color: #074ab8;
+  border: none;
+  width: 100%;
+  margin-top: 20px;
+  color: white;
+}
+
+#subtitle-boxes{
+  display: none;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.video-upload-wrap {
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.video-dropping,
+.video-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.video-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-video {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-video {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-video:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-video:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+/* =============================================== */
+
+/* 
+.subtitle-upload-wrap {
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.subtitle-dropping,
+.subtitle-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.subtitle-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.remove-subtitle {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-subtitle:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-subtitle:active {
+  border: 0;
+  transition: all .2s ease;
+} */
+
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+/* ======================= */
+
+.lang{
+  float: right;
+  /* padding: 4px 10px; */
+}
+
+/* ============HomePage ================= */
+
+.top-box{
+  background-color: #201d1e;
+  height: 230px;
+}
+
+.main-box{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: -120px;
+  width: 80%;
+  height: 300px;
+  background: #ffffff;
+  border-radius: 3px;
+}
+
+
+
+
+.cont-box{
+  margin-top: 100px;
+  font-size: 40px;
+  font-family: Arial, 
+      Helvetica, sans-serif;
+  background: linear-gradient(
+      to right, #f32170, #ff6b08,
+       #cf23cf);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+
+  cursor: pointer;
+}
+
+/* =================List===================== */
+
+
+@import url("https://fonts.googleapis.com/css?family=Inconsolata|Merriweather");
+body {
+  font-family: "Inconsolata", monospace;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+.list-box{
+  padding: 100px;
+}
+
+#portfolio {
+  width: 100%;
+  min-height: 60vh;
+  background: #ffffff;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 2px;
+}
+
+.project {
+  position: relative;
+  background: #F2DAD7;
+  overflow: hidden;
+}
+.project img {
+  position: absolute;
+  opacity: 0.9;
+}
+.project p {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  padding: 1em 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 3;
+}
+.project .grid__title {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  bottom: 0;
+  font-weight: 100;
+  font-size: 0.8em;
+  z-index: 3;
+  text-transform: uppercase;
+  color: #474545;
+  letter-spacing: 2px;
+}
+
+.project:hover .grid__overlay {
+  transform: translateY(0%);
+}
+
+.grid__overlay {
+  background: rgba(229, 182, 177, 0.9);
+  height: 100%;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  transform: translateY(101%);
+  transition: all 0.3s ease-in-out;
+}
+.grid__overlay button {
+  background: none;
+  outline: none;
+  font-weight: 100;
+  letter-spacing: 2px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.grid__overlay button:hover {
+  transition: all 0.3s ease-in-out;
+  background: #ffffff;
+  color: #D1A39E;
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: fixed;
+  background: rgba(71, 69, 69, 0.7);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  z-index: 3;
+}
+
+.overlay.open {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.overlay__inner {
+  background: #ffffff;
+  width: 700px;
+  padding: 20px;
+  position: relative;
+  opacity: 1;
+}
+
+.close {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  background: none;
+  outline: 0;
+  color: #474545;
+  border: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.close:hover {
+  color: #D1A39E;
+}
+
+.project__image {
+  margin-left: -50%;
+}
+
+
+/* =============== */
+.modal-dialog {
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+
+
+.modal-body {
+position:relative;
+padding:0px;
+}
+.close {
+position:absolute;
+right:-30px;
+top:0;
+z-index:999;
+font-size:2rem;
+font-weight: normal;
+color:#fff;
+opacity:1;
+}
