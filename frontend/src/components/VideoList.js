@@ -7,18 +7,14 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import axios from "axios";
 import ReactPlayer from 'react-player'
+import Swal from 'sweetalert2'
 
 
 const VideoList = () => {
 
-
-
   function callVideo(e) {
     setVideoFilePath(e)
   }
-
-
-
 
   const [videoList, setVideoList] = React.useState([])
   const [merged, setmerged] = React.useState(false)
@@ -42,7 +38,9 @@ const VideoList = () => {
         setVideoList(response.data)
         console.log(response);
         setmerged(true)
-        alert("now you can play this video with subtitle")
+        Swal.fire(
+          'Now you can play this video with subtitle!',
+        )
       })
       .catch(function (error) {
         console.log(error);
@@ -56,29 +54,6 @@ const VideoList = () => {
       <h1>UI Card</h1>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <div className="blog-card blog-card-blog">
-              <div className="blog-card-image">
-                <img className="img" src={kang} />
-                <div className="ripple-cont"></div>
-              </div>
-
-              <div className="blog-table">
-                <h4 className="blog-card-caption">
-                  {el.title ? el.title : "Video"}
-                </h4>
-
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <a href="#myModal" data-toggle="modal">
-                    <PlayCircleIcon style={{ width: "40px", height: "40px", cursor: "pointer" }} />
-                  </a>
-                  <FileDownloadIcon style={{ width: "40px", height: "40px", cursor: "pointer" }} />
-                </div>
-
-              </div>
-            </div>
-          </div>
-
 
           {
             videoList.length > 0 ?
@@ -87,13 +62,15 @@ const VideoList = () => {
                   <div className="col-md-4">
                     <div className="blog-card blog-card-blog">
                       <div className="blog-card-image">
-                        <img className="img" src={kang} />
+                        <img className="img" src={el.thumbnail} />
                         <div className="ripple-cont"></div>
                       </div>
 
-                      <div className="blog-table">
+                      <div className="blog-table" style={{ marginBottom: "10px" }}>
                         <h4 className="blog-card-caption">
-                          Lorem Ipsum is simply dummy text of the printing and
+                          <h4 className="blog-card-caption">
+                            {el.title ? el.title : "Video"}
+                          </h4>
                         </h4>
 
                         <div>
@@ -108,6 +85,7 @@ const VideoList = () => {
                                     <span style={{ display: "none" }}>{subtitle.language}</span>
                                     <span style={{ fontWeight: "800", fontSize: "18px", cursor: "pointer" }} onClick={mergeSubtitle}>
                                       {subtitle.language_name}
+                                      <span><br />Click on subtitle to play video</span>
                                     </span>
                                   </>
                                 )
@@ -115,12 +93,11 @@ const VideoList = () => {
                               : null
                           }
                         </div>
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <a href="#myModal" data-toggle="modal" onClick={(e)=>callVideo(el.processed_video ? el.processed_video : el.video_file)}>
+                        <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "5px" }}>
+                          <a href="#myModal" data-toggle="modal" onClick={(e) => callVideo(el.processed_video ? el.processed_video : el.video_file)}>
                             {el.processed_video ?
                               <>
                                 <PlayCircleIcon style={{ width: "40px", height: "40px", cursor: "pointer" }} />
-                                <FileDownloadIcon style={{ width: "40px", height: "40px", cursor: "pointer" }} />
                               </>
                               : null}
                           </a>
@@ -134,17 +111,8 @@ const VideoList = () => {
               : null
           }
 
-
-
-
-
-
-
         </div>
       </div>
-
-
-
 
       <div class="bs-example">
 
@@ -164,7 +132,6 @@ const VideoList = () => {
           </div>
         </div>
       </div>
-
 
     </>
   )

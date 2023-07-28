@@ -1,9 +1,9 @@
 import React from "react";
 import "./css/styles.css";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const UploadPage = () => {
-
 
   const [video, setVideo] = React.useState([])
   const [title, setTitle] = React.useState([])
@@ -42,6 +42,9 @@ const UploadPage = () => {
         axios.post('http://localhost:8000/video/subtitles/', sub)
           .then(function (response) {
             console.log(response);
+            Swal.fire(
+              'Subtitle added!',
+            )
           })
           .catch(function (error) {
             console.log(error);
@@ -51,8 +54,8 @@ const UploadPage = () => {
   }
 
   // for submitting video without subtitle
+  let vidFormOne = new FormData();
   function submitHandler(e) {
-    let vidFormOne = new FormData();
     vidFormOne.append('video_file', video)
     vidFormOne.append('title', title)
     axios.post('http://127.0.0.1:8000/video/videos/', vidFormOne)
@@ -60,12 +63,33 @@ const UploadPage = () => {
         setsubmited(response.data.id)
         console.log(response);
         document.getElementById("check-box").style.display = "block"
+
+        Swal.fire({
+          icon: 'Success',
+          text: 'Video uploaded!',
+          footer: '<p>You can upload subtitle now</p>'
+        })
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
+  function addThumbnail(e) {
+    if (e.target.files) {
+      let f_name = e.target.files[0].name
+      let support_thumbnail = ["png", "PNG", "JPEG", "jpeg", "JPG", "jpg"]
+      if (support_thumbnail.includes(f_name.split(".").slice(-1)[0])) {
+        vidFormOne.append("thumbnail", e.target.files[0])
+      }
+      else {
+        document.getElementById('files2').value = null;
+        Swal.fire(
+          'File not supported!',
+        )
+      }
+    }
+  }
 
   // toggle for subtitle options
   function toggleBox(e) {
@@ -91,8 +115,17 @@ const UploadPage = () => {
       <div className="title">
         <h4>Add your video here</h4>
       </div>
+
       <div className="file-upload">
         <input class="form-control" type="text" placeholder="Video title" onChange={setTitleHandler} />
+
+        <br />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <input type="file" id="files2" class="" onChange={addThumbnail} />
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            <h5>Select Thumbnail</h5>
+          </div>
+        </div>
         <br />
         <div className="video-upload-wrap">
 
@@ -178,9 +211,6 @@ const UploadPage = () => {
       >
         <button type="button" class="submit-btn btn btn-outline-primary" onClick={submitSubtitles} >Submit Subtitles</button>
       </div>
-
-
-
 
     </>
   )
